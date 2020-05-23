@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -12,81 +11,66 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '100%',
-        backgroundColor: theme.palette.background.paper,
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-}));
-
-export default function CheckboxListSecondary() {
-    const classes = useStyles();
-    const [checked, setChecked] = React.useState([1]);
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
-
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        setChecked(newChecked);
-    };
-
-    return (
-        <Grid container justify="center" alignItems="center" spacing={6}>
-            <Grid item xs={12} >
-                <Typography variant="h4" >
-                    Participantes
-                </Typography>
+export default class CadastroAlunos extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        return (
+            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
+                <Grid item xs={12} >
+                    <Typography variant="h4" >
+                        Inscrever Alunos
+                    </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper>
+                        <List dense style={{width: '500px'}}>
+                            {[0, 1, 2, 3].map((value) => {
+                                const labelId = `checkbox-list-secondary-label-${value}`;
+                                return (
+                                    <ListItem key={value} button>
+                                        <ListItemAvatar>
+                                            <Avatar
+                                                alt={`Avatar n°${value + 1}`}
+                                                src={`/static/images/avatar/${value + 1}.jpg`}
+                                            />
+                                        </ListItemAvatar>
+                                        <ListItemText id={labelId} primary={'Paulo'} />
+                                        <ListItemText id={labelId} primary={'Ciência da Computação'} />
+                                        <ListItemSecondaryAction>
+                                            <Checkbox
+                                                label='My checkbox'
+                                                edge="end"
+                                                inputProps={{ 'aria-labelledby': labelId }}
+                                                style={{
+                                                    color: "#3f51b5",
+                                                }}
+                                            />
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                );
+                            })}
+                        </List>
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button variant="contained" color="primary" style={{textTransform:"none"}}>
+                        Inscrever
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                    <List dense className={classes.root}> 
-                        {[0, 1, 2, 3].map((value) => {
-                            const labelId = `checkbox-list-secondary-label-${value}`;
-                            return (
-                                <ListItem key={value} button>
-                                    <ListItemAvatar>
-                                        <Avatar
-                                            alt={`Avatar n°${value + 1}`}
-                                            src={`/static/images/avatar/${value + 1}.jpg`}
-                                        />
-                                    </ListItemAvatar>
-                                    <ListItemText id={labelId} primary={'Paulo'} />
-                                    <ListItemText id={labelId} primary={'Ciência da Computação'} />
-                                    <ListItemSecondaryAction>
-                                        <Checkbox
-                                            label='My checkbox'
-                                            edge="end"
-                                            onChange={handleToggle(value)}
-                                            checked={checked.indexOf(value) !== -1}
-                                            inputProps={{ 'aria-labelledby': labelId }}
-                                            style={{
-                                                color: "#3f51b5",
-                                            }}
-                                        />
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            );
-                        })}
-                    </List>
-                </Paper>
-            </Grid>
-            <Grid item xs={12} alignItems="center" justify="center">
-                <Button variant="contained" color="primary">
-                    Cadastrar
-                </Button>
-            </Grid>
-        </Grid>
-    );
+      );
+    }
+
+
 }
+
+
+
+
+
+
+

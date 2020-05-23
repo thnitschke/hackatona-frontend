@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 
-import {
-    Button,
-    Container,
-    Grid,
-    List,
-    ListItem,
-    Snackbar,
-    TextField,
-    Typography,
-} from '@material-ui/core';
+export default class FichaAvaliacao extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        };
+    }
+    render() {
+        return (
+            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
 
-export default function FichaAvaliacao() {
-    const history = useHistory();
+            </Grid>
+      );
+    }
 
-    return (
-        <Container maxWidth="md">
-            <List> 
-            </List>
-        </Container>
-    );
+
 }
+
+
+
+
+
+
+

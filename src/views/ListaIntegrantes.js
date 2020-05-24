@@ -10,21 +10,33 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-export default class EditarTimes extends Component {
+export default class ListaIntegrantes extends Component {
     constructor(props) {
         super(props);
         this.state = {
+
         };
     }
 
+    handleAdd() {
+
+    }
+    handleDelete() {
+        
+    }
+
     render() {    
-        const rows = [{aluno:'João',curso: 'Engenharia de Software',sugestao: 'Time A'}, {aluno:'Pedro',curso: 'Ciência da Computação',sugestao: 'Time B' }];
+        //get from service
+        const rows = [{id: 1, aluno:'João',curso: 'Engenharia de Software',sugestao: 'Time A'}, {id: 2, aluno:'Pedro',curso: 'Ciência da Computação',sugestao: 'Time B' }];
+      
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
                 <Grid item xs={12} >
                     <Typography variant="h4" >
-                        Editar time
+                        Adicionar Integrantes
                     </Typography>
                 </Grid>
                 <Grid item xs={12} style={{width: '900px'}}>
@@ -32,22 +44,25 @@ export default class EditarTimes extends Component {
                         <Table aria-label="simple table">
                             <TableHead>
                                     <TableRow>
-                                        <TableCell>Nome do aluno</TableCell>
-                                        <TableCell>Curso</TableCell>
-                                        <TableCell>Sugestão de time</TableCell>
+                                        <TableCell align="center">Nome do aluno</TableCell>
+                                        <TableCell align="center">Curso</TableCell>
+                                        <TableCell align="center">Sugestão</TableCell>
+                                        <TableCell align="center">Adicionar</TableCell>
+                                        <TableCell align="center">Remover</TableCell>
                                         <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
                             {rows.map((row) => (
                                 <TableRow key={row.aluno}>
-                                    <TableCell>{row.aluno}</TableCell>
-                                    <TableCell>{row.curso}</TableCell>
-                                    <TableCell>{row.sugestao}</TableCell>
-                                    <TableCell>
-                                        <Button variant="contained" color="primary" style={{textTransform:"none"}}>
-                                            Adicionar ao Time
-                                        </Button>
+                                    <TableCell align="center">{row.aluno}</TableCell>
+                                    <TableCell align="center">{row.curso}</TableCell>
+                                    <TableCell align="center">{row.sugestao}</TableCell>
+                                    <TableCell align="center">
+                                        <AddCircleIcon color="primary" onClick={this.handleAdd}/>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <DeleteIcon color="primary" onClick={this.handleDelete}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -10,12 +10,17 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-export default class CadastroTimes extends Component {
+export default class ListaTimes extends Component {
     constructor(props) {
         super(props);
         this.state = {
         };
+    }
+    handleClick() {
+        
     }
     render() {
         const rows = [{time:'Time A',qtdAlunos: 3}, {time:'Time B',qtdAlunos: 3}];
@@ -26,14 +31,15 @@ export default class CadastroTimes extends Component {
                         Times
                     </Typography>
                 </Grid>
-                <Grid item xs={12} style={{width: '600px'}}>
+                <Grid item xs={12} style={{width: '800px'}}>
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead>
                                     <TableRow>
                                         <TableCell align="center">Nome do time</TableCell>
                                         <TableCell align="center">Alunos inscritos</TableCell>
-                                        <TableCell></TableCell>
+                                        <TableCell align="center">Adicionar Integrantes</TableCell>
+                                        <TableCell align="center">Excluir time</TableCell>
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
@@ -42,9 +48,12 @@ export default class CadastroTimes extends Component {
                                     <TableCell align="center">{row.time}</TableCell>
                                     <TableCell align="center">{row.qtdAlunos}</TableCell>
                                     <TableCell align="center">
-                                        <Button component={Link} to={'/times/editar'} variant="contained" color="primary" style={{textTransform:"none"}}>
-                                            Editar times
-                                        </Button>
+                                        <Link to={'/integrantes'}>
+                                            <AddCircleIcon color="primary" />
+                                        </Link>
+                                    </TableCell>
+                                    <TableCell align="center">
+                                        <DeleteIcon color="primary"/>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -53,7 +62,13 @@ export default class CadastroTimes extends Component {
                     </TableContainer>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" style={{textTransform:"none"}}>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={() => {this.handleClick()}} 
+                        style={{textTransform:"none"}}
+                        component={Link} to={'/times/cadastro'}
+                    >
                         Adicionar time
                     </Button>
                 </Grid>

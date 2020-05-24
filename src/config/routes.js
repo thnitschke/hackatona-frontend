@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { createBrowserHistory } from "history";
 import CadastroAlunos from '../views/CadastroAlunos';
-import CadastroTimes from '../views/CadastroTimes';
-import FichaAvaliacao from '../views/FichaAvaliacao';
-import EditarTimes from '../views/EditarTimes';
+import ListaTimes from '../views/ListaTimes';
+import CadastroTime from '../views/CadastroTime'
+import ListaIntegrantes from '../views/ListaIntegrantes';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -26,9 +26,9 @@ export default function Routes() {
             </AppBar>
             <Switch>
                 <Route exact path="/alunos" component={CadastroAlunos}/>
-                <Route exact path="/times" component={CadastroTimes}/>
-                <Route exact path="/avaliacao" component={FichaAvaliacao}/>
-                <Route exact path="/times/editar" component={EditarTimes}/>
+                <Route exact path="/times" component={ListaTimes}/>
+                <Route exact path="/times/cadastro" component={CadastroTime}/>
+                <Route exact path="/integrantes" component={ListaIntegrantes}/>
             </Switch>
         </Router>
     );

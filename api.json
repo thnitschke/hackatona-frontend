@@ -1,0 +1,108 @@
+{
+  "alunos": [
+    {
+      "id": "1",
+      "nome": "Paulo Silva",
+      "curso": "Engenharia de Software"
+    },
+    {
+      "id": "2",
+      "nome": "João",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "3",
+      "nome": "Eduardo",
+      "curso": "Ciência da Computação"
+    },
+    {
+      "id": "4",
+      "nome": "Fernando",
+      "curso": "Engenharia de Software"
+    },
+    {
+      "id": "5",
+      "nome": "Pedro",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "6",
+      "nome": "Antonio",
+      "curso": "Ciência da Computação"
+    },
+    {
+      "id": "7",
+      "nome": "Paula",
+      "curso": "Engenharia de Software"
+    },
+    {
+      "id": "8",
+      "nome": "Alex",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "9",
+      "nome": "Tiago",
+      "curso": "Ciência da Computação"
+    },
+    {
+      "id": "10",
+      "nome": "Mauricio",
+      "curso": "Engenharia de Software"
+    },
+    {
+      "id": "11",
+      "nome": "Marcos",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "12",
+      "nome": "Leticia",
+      "curso": "Ciência da Computação"
+    },
+    {
+      "id": "13",
+      "nome": "Cleber",
+      "curso": "Engenharia de Software"
+    }
+  ],
+  "alunosInscritos": [
+    {
+      "id": "14",
+      "nome": "Denis",
+      "curso": "Engenharia de Software"
+    },
+    {
+      "id": "15",
+      "nome": "Vagner",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "8",
+      "nome": "Alex",
+      "curso": "Sistemas de Informação"
+    },
+    {
+      "id": "6",
+      "nome": "Antonio",
+      "curso": "Ciência da Computação"
+    },
+    {
+      "id": "7",
+      "nome": "Paula",
+      "curso": "Engenharia de Software"
+    }
+  ],
+  "times": [
+    {
+      "id": "1",
+      "nome": "Time A",
+      "integrantes": []
+    },
+    {
+      "id": "2",
+      "nome": "Time B",
+      "integrantes": []
+    }
+  ]
+}

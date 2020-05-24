@@ -12,18 +12,20 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import {getTimes} from '../services/index'
 
 export default class ListaTimes extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            arrayTimes: []
         };
     }
-    handleClick() {
-        
+    async componentDidMount() {
+        let times = await getTimes()
+        this.setState({ arrayTimes: times });
     }
     render() {
-        const rows = [{time:'Time A',qtdAlunos: 3}, {time:'Time B',qtdAlunos: 3}];
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
                 <Grid item xs={12} >
@@ -37,18 +39,23 @@ export default class ListaTimes extends Component {
                             <TableHead>
                                     <TableRow>
                                         <TableCell align="center">Nome do time</TableCell>
-                                        <TableCell align="center">Alunos inscritos</TableCell>
+                                        <TableCell align="center">Membros</TableCell>
                                         <TableCell align="center">Adicionar Integrantes</TableCell>
                                         <TableCell align="center">Excluir time</TableCell>
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {this.state.arrayTimes.map((row) => (
                                 <TableRow key={row.time}>
-                                    <TableCell align="center">{row.time}</TableCell>
-                                    <TableCell align="center">{row.qtdAlunos}</TableCell>
+                                    <TableCell align="center">{row.nome}</TableCell>
+                                    <TableCell align="center">{row.integrantes.length}</TableCell>
                                     <TableCell align="center">
-                                        <Link to={'/integrantes'}>
+                                        <Link 
+                                            to={{
+                                                pathname:'/integrantes', 
+                                                dados: {id: row.id, nome: row.nome, integrantes: row.integrantes}
+                                            }}
+                                        >
                                             <AddCircleIcon color="primary" />
                                         </Link>
                                     </TableCell>
@@ -67,7 +74,7 @@ export default class ListaTimes extends Component {
                         color="primary" 
                         onClick={() => {this.handleClick()}} 
                         style={{textTransform:"none"}}
-                        component={Link} to={'/times/cadastro'}
+                        component={Link} to={'/integrantes'}
                     >
                         Adicionar time
                     </Button>

@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import { Link } from "react-router-dom";
 
 export default class CadastroTime extends Component {
@@ -27,9 +26,7 @@ export default class CadastroTime extends Component {
                         Novo time
                     </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField label="Nome" variant="outlined" size="small"/>
-                </Grid>
+
                 <Grid item xs={12}>
                     <Button 
                         variant="contained" 

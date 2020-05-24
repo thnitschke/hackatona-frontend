@@ -12,26 +12,30 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import {getAlunosInscritos} from '../services/index'
+import {patchIntegrantesDoTime} from '../services/index'
 
 export default class ListaIntegrantes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            alunosInscritos: [],
         };
     }
 
-    handleAdd() {
+    async componentDidMount() {
+        let alunosInscritos = await getAlunosInscritos()
+        this.setState({ alunosInscritos: alunosInscritos });
+    }
 
+    async handleAdd(aluno) {
+        await patchIntegrantesDoTime(aluno, this.location.props.data)
     }
     handleDelete() {
         
     }
 
     render() {    
-        //get from service
-        const rows = [{id: 1, aluno:'João',curso: 'Engenharia de Software',sugestao: 'Time A'}, {id: 2, aluno:'Pedro',curso: 'Ciência da Computação',sugestao: 'Time B' }];
-      
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
                 <Grid item xs={12} >
@@ -53,16 +57,16 @@ export default class ListaIntegrantes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {rows.map((row) => (
+                            {this.state.alunosInscritos.map((row) => (
                                 <TableRow key={row.aluno}>
-                                    <TableCell align="center">{row.aluno}</TableCell>
+                                    <TableCell align="center">{row.nome}</TableCell>
                                     <TableCell align="center">{row.curso}</TableCell>
                                     <TableCell align="center">{row.sugestao}</TableCell>
                                     <TableCell align="center">
-                                        <AddCircleIcon color="primary" onClick={this.handleAdd}/>
+                                        <AddCircleIcon color="primary" onClick={() => this.handleAdd(row)}/>
                                     </TableCell>
                                     <TableCell align="center">
-                                        <DeleteIcon color="primary" onClick={this.handleDelete}/>
+                                        <DeleteIcon color="primary" onClick={() => this.handleDelete}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

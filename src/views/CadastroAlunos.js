@@ -10,12 +10,33 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {getAlunos} from '../services/index'
+import {postAlunosInscritos} from '../services/index'
 
 export default class CadastroAlunos extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            alunos: [],
+            alunosInscritos: []
         };
+    }
+    async componentDidMount() {
+        let arrayAlunos = await getAlunos()
+        this.setState({ alunos: arrayAlunos });
+    }
+
+    handleChangeCheckbox(checked, value) {
+        if(checked) {
+            this.state.alunosInscritos.push(value)
+        }
+        else  {
+            let index = this.state.alunosInscritos.indexOf(value)
+            this.state.alunosInscritos.splice(index, 1);
+        }
+    }
+    async handleClickInscrever(){
+        await postAlunosInscritos(this.state.alunosInscritos)
     }
     render() {
         return (
@@ -28,26 +49,23 @@ export default class CadastroAlunos extends Component {
                 <Grid item xs={6}>
                     <Paper>
                         <List dense style={{width: '500px'}}>
-                            {[0, 1, 2, 3].map((value) => {
-                                const labelId = `checkbox-list-secondary-label-${value}`;
+                            {this.state.alunos.map((value) => {
                                 return (
                                     <ListItem key={value} button>
                                         <ListItemAvatar>
                                             <Avatar
-                                                alt={`Avatar n°${value + 1}`}
-                                                src={`/static/images/avatar/${value + 1}.jpg`}
+                                                alt={'imagem'}
+                                                src={'/static/images/avatar/'}
                                             />
                                         </ListItemAvatar>
-                                        <ListItemText id={labelId} primary={'Paulo'} />
-                                        <ListItemText id={labelId} primary={'Ciência da Computação'} />
+                                        <ListItemText primary={value.nome} />
+                                        <ListItemText primary={value.curso} />
                                         <ListItemSecondaryAction>
                                             <Checkbox
                                                 label='My checkbox'
                                                 edge="end"
-                                                inputProps={{ 'aria-labelledby': labelId }}
-                                                style={{
-                                                    color: "#3f51b5",
-                                                }}
+                                                style={{ color: "#3f51b5" }}
+                                                onChange={(event) => this.handleChangeCheckbox(event.target.checked,value)}
                                             />
                                         </ListItemSecondaryAction>
                                     </ListItem>
@@ -57,7 +75,7 @@ export default class CadastroAlunos extends Component {
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" style={{textTransform:"none"}}>
+                    <Button variant="contained" color="primary" style={{textTransform:"none"}} onClick={() => this.handleClickInscrever()}>
                         Inscrever
                     </Button>
                 </Grid>

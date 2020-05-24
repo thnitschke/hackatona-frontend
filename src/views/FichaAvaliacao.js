@@ -10,7 +10,7 @@ export default class FichaAvaliacao extends Component {
     render() {
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
-
+            
             </Grid>
       );
     }

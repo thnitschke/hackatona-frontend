@@ -26,16 +26,16 @@ export default class CadastroAlunos extends Component {
         this.setState({ alunos: arrayAlunos });
     }
 
-    handleChangeCheckbox(checked, value) {
+    handleChangeCheckbox(checked, value) { //Armazena no state aluno inscrito
         if(checked) {
             this.state.alunosInscritos.push(value)
         }
         else  {
-            let index = this.state.alunosInscritos.indexOf(value)
+            let index = this.state.alunosInscritos.indexOf(value) 
             this.state.alunosInscritos.splice(index, 1);
         }
     }
-    async handleClickInscrever(){
+    async handleClickInscrever(){ 
         await postAlunosInscritos(this.state.alunosInscritos)
         this.props.history.push("/times")
     }

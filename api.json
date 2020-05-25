@@ -10,13 +10,13 @@
       "id": "2",
       "nome": "João",
       "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
+      "sugestao": "Time B"
     },
     {
       "id": "3",
       "nome": "Eduardo",
       "curso": "Ciência da Computação",
-      "sugestao": "Time A"
+      "sugestao": "Time C"
     },
     {
       "id": "4",
@@ -28,13 +28,13 @@
       "id": "5",
       "nome": "Pedro",
       "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
+      "sugestao": "Time B"
     },
     {
       "id": "6",
       "nome": "Antonio",
       "curso": "Ciência da Computação",
-      "sugestao": "Time A"
+      "sugestao": "Time C"
     },
     {
       "id": "7",
@@ -46,13 +46,13 @@
       "id": "8",
       "nome": "Alex",
       "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
+      "sugestao": "Time B"
     },
     {
       "id": "9",
       "nome": "Tiago",
       "curso": "Ciência da Computação",
-      "sugestao": "Time A"
+      "sugestao": "Time C"
     },
     {
       "id": "10",
@@ -64,19 +64,19 @@
       "id": "11",
       "nome": "Marcos",
       "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
+      "sugestao": "Time B"
     },
     {
       "id": "12",
       "nome": "Leticia",
       "curso": "Ciência da Computação",
-      "sugestao": "Time A"
+      "sugestao": "Time C"
     },
     {
       "id": "13",
       "nome": "Cleber",
       "curso": "Engenharia de Software",
-      "sugestao": "Time A"
+      "sugestao": "Time D"
     }
   ],
   "alunosInscritos": [
@@ -84,13 +84,13 @@
       "id": "14",
       "nome": "Denis",
       "curso": "Engenharia de Software",
-      "sugestao": "Time A"
+      "sugestao": "Time D"
     },
     {
       "id": "15",
       "nome": "Vagner",
       "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
+      "sugestao": "Time D"
     }
   ],
   "times": [

@@ -81,7 +81,8 @@ export const postAlunosInscritos = (lista) => {
       return axios.post('http://localhost:3000/alunosInscritos', {
         id: value.id,
         nome: value.nome,
-        curso: value.curso
+        curso: value.curso,
+        sugestao: value.sugestao
       })
       .then(function (response) {
         // handle success

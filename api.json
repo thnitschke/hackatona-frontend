@@ -91,36 +91,13 @@
       "nome": "Vagner",
       "curso": "Sistemas de Informação",
       "sugestao": "Time A"
-    },
-    {
-      "id": "8",
-      "nome": "Alex",
-      "curso": "Sistemas de Informação",
-      "sugestao": "Time A"
-    },
-    {
-      "id": "6",
-      "nome": "Antonio",
-      "curso": "Ciência da Computação",
-      "sugestao": "Time A"
-    },
-    {
-      "id": "7",
-      "nome": "Paula",
-      "curso": "Engenharia de Software",
-      "sugestao": "Time A"
     }
   ],
   "times": [
     {
       "id": "2",
-      "nome": "Time B",
-      "integrantes": []
-    },
-    {
       "nome": "Time A",
-      "integrantes": [],
-      "id": "JVdbifQ"
+      "integrantes": []
     }
   ]
 }

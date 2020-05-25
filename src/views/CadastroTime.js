@@ -23,8 +23,10 @@ export default class CadastroTime extends Component {
     }
 
     async handleClickCadastrar(){
-        await postCadastraTime(this.state.nome)
-        this.props.history.push("/times")
+        if(this.state.nome) {
+            await postCadastraTime(this.state.nome)
+            this.props.history.push("/times")
+        }
     }
 
     handleChange(event){

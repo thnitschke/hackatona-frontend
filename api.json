@@ -113,14 +113,14 @@
   ],
   "times": [
     {
-      "id": "1",
-      "nome": "Time A",
-      "integrantes": []
-    },
-    {
       "id": "2",
       "nome": "Time B",
       "integrantes": []
+    },
+    {
+      "nome": "Time A",
+      "integrantes": [],
+      "id": "JVdbifQ"
     }
   ]
 }

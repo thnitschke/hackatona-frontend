@@ -57,7 +57,7 @@ export const patchIntegrantesDoTime = (aluno, time) => {
 };
 
 export const deleteIntegranteDoTime = (aluno, time) => {
-  let index = time.integrantes.indexOf(aluno)
+  let index = time.integrantes.findIndex(element => aluno.id === element.id)
   time.integrantes.splice(index, 1);
   return axios.patch('http://localhost:3000/times/'+ time.id, {
     id: time.id,

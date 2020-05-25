@@ -10,6 +10,7 @@ import ListaIntegrantes from '../views/ListaIntegrantes';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import FichaAvaliacao from "../views/FichaAvaliacao";
 
 export default function Routes() {
 
@@ -29,6 +30,7 @@ export default function Routes() {
                 <Route exact path="/times" component={ListaTimes}/>
                 <Route exact path="/times/cadastro" component={CadastroTime}/>
                 <Route exact path="/integrantes" component={ListaIntegrantes}/>
+                <Route exact path="/avaliacao" component={FichaAvaliacao}/>
             </Switch>
         </Router>
     );

@@ -14,12 +14,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import {getAlunosInscritos} from '../services/index'
 import {patchIntegrantesDoTime} from '../services/index'
+import {deleteIntegranteDoTime} from '../services/index'
 
 export default class ListaIntegrantes extends Component {
     constructor(props) {
         super(props);
         this.state = {
             alunosInscritos: [],
+            time: this.props.location.dados || {}
         };
     }
 
@@ -29,10 +31,20 @@ export default class ListaIntegrantes extends Component {
     }
 
     async handleAdd(aluno) {
-        await patchIntegrantesDoTime(aluno, this.location.props.data)
+        if(this.pertenceAoTime(aluno, this.state.time)) return
+        await patchIntegrantesDoTime(aluno, this.state.time)
+        this.setState({})
     }
-    handleDelete() {
-        
+    
+    async handleDelete(aluno) {
+        if(!this.pertenceAoTime(aluno, this.state.time)) return
+        await deleteIntegranteDoTime(aluno, this.state.time)
+        this.setState({})
+    }
+
+    pertenceAoTime(aluno, time){
+        const ehDoTime = time.integrantes.filter(element => aluno.id === element.id)
+        return !!ehDoTime && ehDoTime.length > 0
     }
 
     render() {    
@@ -57,16 +69,21 @@ export default class ListaIntegrantes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.alunosInscritos.map((row) => (
-                                <TableRow key={row.aluno}>
-                                    <TableCell align="center">{row.nome}</TableCell>
-                                    <TableCell align="center">{row.curso}</TableCell>
-                                    <TableCell align="center">{row.sugestao}</TableCell>
+                            {this.state.alunosInscritos.map((aluno) => (
+                                <TableRow key={aluno.id}>
+                                    <TableCell align="center">{aluno.nome}</TableCell>
+                                    <TableCell align="center">{aluno.curso}</TableCell>
+                                    <TableCell align="center">{aluno.sugestao}</TableCell>
                                     <TableCell align="center">
-                                        <AddCircleIcon color="primary" onClick={() => this.handleAdd(row)}/>
+                                        <AddCircleIcon 
+                                            color={this.pertenceAoTime(aluno,this.state.time) ? 'disabled' : 'primary'} 
+                                            onClick={() => this.handleAdd(aluno)}
+                                        />
                                     </TableCell>
                                     <TableCell align="center">
-                                        <DeleteIcon color="primary" onClick={() => this.handleDelete}/>
+                                        <DeleteIcon 
+                                            color={this.pertenceAoTime(aluno,this.state.time) ? 'primary' : 'disabled'} 
+                                            onClick={() => this.handleDelete(aluno)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}

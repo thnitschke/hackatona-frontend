@@ -11,13 +11,26 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
+import TextField from '@material-ui/core/TextField';
+import {postCadastraTime} from '../services/index'
 
 export default class CadastroTime extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            nome: '',
         };
     }
+
+    async handleClickCadastrar(){
+        await postCadastraTime(this.state.nome)
+        this.props.history.push("/times")
+    }
+
+    handleChange(event){
+        this.setState({ nome: event.target.value });
+    }
+
     render() {
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
@@ -26,13 +39,15 @@ export default class CadastroTime extends Component {
                         Novo time
                     </Typography>
                 </Grid>
-
+                <Grid item xs={12} >
+                    <TextField  label="Nome do time" variant="outlined" size="small" onChange={(event) => this.handleChange(event)}/>
+                </Grid>
                 <Grid item xs={12}>
                     <Button 
                         variant="contained" 
                         color="primary"  
                         style={{textTransform:"none"}}
-                        component={Link} to={'/integrantes'}
+                        onClick={() => this.handleClickCadastrar()}
                     >
                         Salvar
                     </Button>

@@ -3,94 +3,112 @@
     {
       "id": "1",
       "nome": "Paulo Silva",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     },
     {
       "id": "2",
       "nome": "João",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "3",
       "nome": "Eduardo",
-      "curso": "Ciência da Computação"
+      "curso": "Ciência da Computação",
+      "sugestao": "Time A"
     },
     {
       "id": "4",
       "nome": "Fernando",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     },
     {
       "id": "5",
       "nome": "Pedro",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "6",
       "nome": "Antonio",
-      "curso": "Ciência da Computação"
+      "curso": "Ciência da Computação",
+      "sugestao": "Time A"
     },
     {
       "id": "7",
       "nome": "Paula",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     },
     {
       "id": "8",
       "nome": "Alex",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "9",
       "nome": "Tiago",
-      "curso": "Ciência da Computação"
+      "curso": "Ciência da Computação",
+      "sugestao": "Time A"
     },
     {
       "id": "10",
       "nome": "Mauricio",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     },
     {
       "id": "11",
       "nome": "Marcos",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "12",
       "nome": "Leticia",
-      "curso": "Ciência da Computação"
+      "curso": "Ciência da Computação",
+      "sugestao": "Time A"
     },
     {
       "id": "13",
       "nome": "Cleber",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     }
   ],
   "alunosInscritos": [
     {
       "id": "14",
       "nome": "Denis",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     },
     {
       "id": "15",
       "nome": "Vagner",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "8",
       "nome": "Alex",
-      "curso": "Sistemas de Informação"
+      "curso": "Sistemas de Informação",
+      "sugestao": "Time A"
     },
     {
       "id": "6",
       "nome": "Antonio",
-      "curso": "Ciência da Computação"
+      "curso": "Ciência da Computação",
+      "sugestao": "Time A"
     },
     {
       "id": "7",
       "nome": "Paula",
-      "curso": "Engenharia de Software"
+      "curso": "Engenharia de Software",
+      "sugestao": "Time A"
     }
   ],
   "times": [

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import {getTimes} from '../services/index'
+import {deleteTimes} from '../services/index'
 
 export default class ListaTimes extends Component {
     constructor(props) {
@@ -24,6 +25,13 @@ export default class ListaTimes extends Component {
     async componentDidMount() {
         let times = await getTimes()
         this.setState({ arrayTimes: times });
+    }
+
+    async handleDelete(time) {
+        await deleteTimes(time)
+        let index = this.state.arrayTimes.indexOf(time)
+        this.state.arrayTimes.splice(index, 1);
+        this.setState({});
     }
     render() {
         return (
@@ -45,22 +53,22 @@ export default class ListaTimes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.arrayTimes.map((row) => (
-                                <TableRow key={row.time}>
-                                    <TableCell align="center">{row.nome}</TableCell>
-                                    <TableCell align="center">{row.integrantes.length}</TableCell>
+                            {this.state.arrayTimes.map((time) => (
+                                <TableRow key={time.id}>
+                                    <TableCell align="center">{time.nome}</TableCell>
+                                    <TableCell align="center">{time.integrantes.length}</TableCell>
                                     <TableCell align="center">
                                         <Link 
                                             to={{
                                                 pathname:'/integrantes', 
-                                                dados: {id: row.id, nome: row.nome, integrantes: row.integrantes}
+                                                dados: {id: time.id, nome: time.nome, integrantes: time.integrantes}
                                             }}
                                         >
                                             <AddCircleIcon color="primary" />
                                         </Link>
                                     </TableCell>
                                     <TableCell align="center">
-                                        <DeleteIcon color="primary"/>
+                                        <DeleteIcon color="primary" onClick={()=> this.handleDelete(time)}/>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -72,9 +80,8 @@ export default class ListaTimes extends Component {
                     <Button 
                         variant="contained" 
                         color="primary" 
-                        onClick={() => {this.handleClick()}} 
                         style={{textTransform:"none"}}
-                        component={Link} to={'/integrantes'}
+                        component={Link} to={'/times/cadastro'}
                     >
                         Adicionar time
                     </Button>

@@ -13,17 +13,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import {getTimes} from '../services/index'
 
 export default class FichaAvaliacao extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      teams: [
-        {name: "Os melhores do mundo", id: 1},
-        {name: "Os Nerds", id: 2},
-        {name: "Mean girls", id: 3},
-        ],
+      teams: [],
       selectedTeamIndex: 0,
       workingSoftware: "0",
       process: "0",
@@ -34,7 +31,8 @@ export default class FichaAvaliacao extends Component {
   }
 
   componentDidMount = async () => {
-
+    let teams = await getTimes()
+    this.setState({ teams: teams });
   };
 
   handleWorkingSoftwareChange = (event) => {
@@ -98,7 +96,7 @@ export default class FichaAvaliacao extends Component {
               aria-controls={"panel" + index + "c-content"}
               id={"panel" + index + "c-header"}
             >
-              <Typography variant="h6">{"Time: " + team.name}</Typography>
+              <Typography variant="h6">{"Time: " + team.nome}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Grid container justify="center" alignItems="center" spacing={12} direction="column">

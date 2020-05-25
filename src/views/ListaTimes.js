@@ -6,7 +6,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Title from '../components/Title';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
@@ -37,9 +37,7 @@ export default class ListaTimes extends Component {
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
                 <Grid item xs={12} >
-                    <Typography variant="h4" >
-                        Times
-                    </Typography>
+                    <Title text="Times"> </Title>
                 </Grid>
                 <Grid item xs={12} style={{width: '800px'}}>
                     <TableContainer component={Paper}>

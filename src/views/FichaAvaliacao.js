@@ -89,7 +89,7 @@ export default class FichaAvaliacao extends Component {
           </Typography>
         </Grid>
         <Grid item style={{width: "50%"}}>
-          {this.state.teams.map((team, index) => (
+          {this.state.teams?.map((team, index) => (
           <ExpansionPanel TransitionProps={{unmountOnExit: true}} onChange={() => this.setState({selectedTeamIndex: index})}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon/>}

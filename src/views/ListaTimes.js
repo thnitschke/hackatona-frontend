@@ -24,7 +24,8 @@ export default class ListaTimes extends Component {
     }
     async componentDidMount() {
         let times = await getTimes()
-        this.setState({ arrayTimes: times });
+        console.log(times)
+        //  this.setState({ arrayTimes: times });
     }
 
     async handleDelete(time) {
@@ -51,7 +52,7 @@ export default class ListaTimes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.arrayTimes.map((time) => (
+                            {this.state.arrayTimes?.map((time) => (
                                 <TableRow key={time.id}>
                                     <TableCell align="center">{time.nome}</TableCell>
                                     <TableCell align="center">{time.integrantes.length}</TableCell>

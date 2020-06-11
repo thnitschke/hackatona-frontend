@@ -1,6 +1,31 @@
 import axios from "axios";
 
+export const getAlunos = () => {
+  return axios.get('http://localhost:8080/api/aluno/list', {
+  })
+  .then(function (response) {
+    // handle success
+    return response.data.content.list
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+};
 
+export const getTimes = () => {
+  return axios.get('http://localhost:8080/api/time/listar')
+  .then(function (response) {
+    // handle success
+    return response.data.content.list
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+};
+
+/*
 export const getAlunos = () => {
   return axios.get('http://localhost:3000/alunos')
   .then(function (response) {
@@ -24,6 +49,7 @@ export const getTimes = () => {
     console.log(error);
   })
 };
+*/
 
 export const getAlunosInscritos = () => {
   return axios.get('http://localhost:3000/alunosInscritos')

@@ -69,7 +69,7 @@ export default class ListaIntegrantes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.alunosInscritos.map((aluno) => (
+                            {this.state.alunosInscritos?.map((aluno) => (
                                 <TableRow key={aluno.id}>
                                     <TableCell align="center">{aluno.nome}</TableCell>
                                     <TableCell align="center">{aluno.curso}</TableCell>

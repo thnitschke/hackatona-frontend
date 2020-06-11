@@ -50,7 +50,7 @@ export default class CadastroAlunos extends Component {
                 <Grid item xs={6}>
                     <Paper>
                         <List dense style={{width: '500px'}}>
-                            {this.state.alunos.map((value) => {
+                            {this.state.alunos?.map((value) => {
                                 return (
                                     <ListItem key={value} button>
                                         <ListItemAvatar>

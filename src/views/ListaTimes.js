@@ -24,8 +24,7 @@ export default class ListaTimes extends Component {
     }
     async componentDidMount() {
         let times = await getTimes()
-        console.log(times)
-        //  this.setState({ arrayTimes: times });
+        this.setState({ arrayTimes: times });
     }
 
     async handleDelete(time) {
@@ -55,12 +54,12 @@ export default class ListaTimes extends Component {
                             {this.state.arrayTimes?.map((time) => (
                                 <TableRow key={time.id}>
                                     <TableCell align="center">{time.nome}</TableCell>
-                                    <TableCell align="center">{time.integrantes.length}</TableCell>
+                                    <TableCell align="center">{time.alunos.length}</TableCell>
                                     <TableCell align="center">
                                         <Link 
                                             to={{
                                                 pathname:'/integrantes', 
-                                                dados: {id: time.id, nome: time.nome, integrantes: time.integrantes}
+                                                dados: {id: time.id, nome: time.nome, integrantes: time.alunos}
                                             }}
                                         >
                                             <AddCircleIcon color="primary" />

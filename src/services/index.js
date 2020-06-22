@@ -25,6 +25,17 @@ export const getTimes = () => {
   })
 };
 
+export const getAvaliacoes = () => {
+  return axios.get('http://localhost:8080/api/time/resultado')
+  .then(function (response) {
+    // handle success
+    return response.data.content.resultadoFinal
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+};
 /*
 export const getAlunos = () => {
   return axios.get('http://localhost:3000/alunos')

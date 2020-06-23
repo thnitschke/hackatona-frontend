@@ -12,6 +12,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import FichaAvaliacao from "../views/FichaAvaliacao";
 import Resultados from '../views/Resultados';
+import CadastroAlunos from '../views/CadastroAlunos';
 
 export default function Routes() {
 
@@ -29,6 +30,7 @@ export default function Routes() {
             </AppBar>
             <Switch>
                 <Route exact path="/alunos" component={ListaAlunos}/>
+                <Route exact path="/alunos/cadastro" component={CadastroAlunos}/>
                 <Route exact path="/times" component={ListaTimes}/>
                 <Route exact path="/times/cadastro" component={CadastroTime}/>
                 <Route exact path="/integrantes" component={ListaIntegrantes}/>

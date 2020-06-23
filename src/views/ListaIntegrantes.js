@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {getAlunosInscritos} from '../services/index'
+import {getAlunos} from '../services/index'
 import {patchIntegrantesDoTime} from '../services/index'
 import {deleteIntegranteDoTime} from '../services/index'
 
@@ -20,34 +20,38 @@ export default class ListaIntegrantes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            alunosInscritos: [],
-            time: this.props.location?.dados || {}
+            alunos: [],
+            time: this.props.location?.dados || null
         };
     }
 
     async componentDidMount() {
-        let alunosInscritos = await getAlunosInscritos()
-        this.setState({ alunosInscritos: alunosInscritos });
+        let alunosInscritos = await getAlunos()
+        this.setState({ alunos: alunosInscritos });
     }
 
     async handleAdd(aluno) {
+        if(!this.state.time) return
         if(this.pertenceAoTime(aluno, this.state.time)) return
+        
         await patchIntegrantesDoTime(aluno, this.state.time)
         this.setState({})
     }
     
     async handleDelete(aluno) {
+        if(!this.state.time) return
         if(!this.pertenceAoTime(aluno, this.state.time)) return
         await deleteIntegranteDoTime(aluno, this.state.time)
         this.setState({})
     }
 
     pertenceAoTime(aluno, time){
+        if(!time) return
         const ehDoTime = time.integrantes.filter(element => aluno.id === element.id)
         return !!ehDoTime && ehDoTime.length > 0
     }
 
-    render() {    
+    render() {  
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
                 {!this.props.hideTitle &&
@@ -71,7 +75,7 @@ export default class ListaIntegrantes extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.alunosInscritos?.map((aluno) => (
+                            {this.state.alunos?.map((aluno) => (
                                 <TableRow key={aluno.id}>
                                     <TableCell align="center">{aluno.nome}</TableCell>
                                     <TableCell align="center">{aluno.curso}</TableCell>

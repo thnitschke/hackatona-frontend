@@ -25,7 +25,7 @@ export default class ListaAlunos extends Component {
     }
 
     async handleClickInscrever(){ 
-        this.props.history.push("/")
+        this.props.history.push("/alunos/cadastro")
     }
     render() {
         return (
@@ -40,7 +40,7 @@ export default class ListaAlunos extends Component {
                         <List dense style={{width: '500px'}}>
                             {this.state.alunos?.map((value) => {
                                 return (
-                                    <ListItem key={value} button>
+                                    <ListItem key={value}>
                                         <ListItemAvatar>
                                             <Avatar
                                                 alt={'imagem'}

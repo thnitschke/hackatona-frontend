@@ -36,6 +36,20 @@ export const getAvaliacoes = () => {
     console.log(error);
   })
 };
+
+export const postAluno = (aluno) => {
+    axios.post('http://localhost:8080/api/aluno/cadastrar?idUsuario=2', {aluno})
+    .then(function (response) {
+      // handle success
+      console.log(response)
+      return response
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+      return error
+    })
+};
 /*
 export const getAlunos = () => {
   return axios.get('http://localhost:3000/alunos')
@@ -59,6 +73,27 @@ export const getTimes = () => {
     // handle error
     console.log(error);
   })
+};
+
+export const postAlunosInscritos = (lista) => {
+    return lista.map((value) => {
+      return axios.post('http://localhost:3000/alunosInscritos', {
+        id: value.id,
+        nome: value.nome,
+        curso: value.curso,
+        sugestao: value.sugestao
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response)
+        return response
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        return error
+      })
+    })
 };
 */
 
@@ -111,27 +146,6 @@ export const deleteIntegranteDoTime = (aluno, time) => {
     console.log(error);
     return error
   })
-};
-
-export const postAlunosInscritos = (lista) => {
-    return lista.map((value) => {
-      return axios.post('http://localhost:3000/alunosInscritos', {
-        id: value.id,
-        nome: value.nome,
-        curso: value.curso,
-        sugestao: value.sugestao
-      })
-      .then(function (response) {
-        // handle success
-        console.log(response)
-        return response
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        return error
-      })
-    })
 };
 
 export const postCadastraTime = (nomeTime) => {

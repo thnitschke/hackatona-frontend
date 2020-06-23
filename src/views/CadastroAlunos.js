@@ -1,79 +1,95 @@
 import React, { Component } from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {getAlunos} from '../services/index'
-import {postAlunosInscritos} from '../services/index'
+import { postAluno } from '../services/index'
 
 export default class CadastroAlunos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            alunos: [],
-            alunosInscritos: []
+            matricula:'', 
+            sugestao:'', 
+            curso:'', 
+            id_curso:'', 
+            nome:''
         };
     }
-    async componentDidMount() {
-        let arrayAlunos = await getAlunos()
-        this.setState({ alunos: arrayAlunos });
+
+    handleChangeNome(event) {
+        this.setState({matricula: event.target.value});
+    }
+    handleChangeMatricula(event) {
+        this.setState({sugestao: event.target.value});
+    }
+    handleChangeSugestao(event) {
+        this.setState({curso: event.target.value});
+    }
+    handleChangeCurso(event) {
+        this.setState({id_curso: event.target.value});
+    }
+    handleChangeCodCurso(event) {
+        this.setState({nome: event.target.value});
     }
 
-    handleChangeCheckbox(checked, value) { //Armazena no state aluno inscrito
-        if(checked) {
-            this.state.alunosInscritos.push(value)
-        }
-        else  {
-            let index = this.state.alunosInscritos.indexOf(value) 
-            this.state.alunosInscritos.splice(index, 1);
-        }
-    }
-    async handleClickInscrever(){ 
-        await postAlunosInscritos(this.state.alunosInscritos)
-        this.props.history.push("/times")
+    async handleClickInscrever() {
+        await postAluno(this.state)
+        this.props.history.push("/alunos")
     }
     render() {
         return (
-            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
+            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{ marginTop: '10px' }}>
                 <Grid item xs={12} >
                     <Typography variant="h4" >
-                        Alunos
+                        Inscrever Alunos
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <Paper>
-                        <List dense style={{width: '500px'}}>
-                            {this.state.alunos?.map((value) => {
-                                return (
-                                    <ListItem key={value} button>
-                                        <ListItemAvatar>
-                                            <Avatar
-                                                alt={'imagem'}
-                                                src={'/static/images/avatar/'}
-                                            />
-                                        </ListItemAvatar>
-                                        <ListItemText primary={value.nome} />
-                                        <ListItemText primary={value.curso} />
-                                    </ListItem>
-                                );
-                            })}
-                        </List>
-                    </Paper>
+                    <form noValidate autoComplete="off"  style={{ display: 'flex', flexDirection:"column" }}>
+                        <TextField 
+                            style={{ marginBottom: '15px'}} 
+                            label="Nome" 
+                            variant="outlined" 
+                            size="small" 
+                            onChange={(event) => this.handleChangeNome(event)} 
+                        />
+                        <TextField 
+                            style={{ marginBottom: '15px'}} 
+                            label="Matrícula" 
+                            variant="outlined" 
+                            size="small" 
+                            onChange={(event) => this.handleChangeMatricula(event)} 
+                        />
+                        <TextField 
+                            style={{ marginBottom: '15px'}} 
+                            label="Sugestão" 
+                            variant="outlined" 
+                            size="small" 
+                            onChange={(event) => this.handleChangeSugestao(event)} 
+                        />
+                        <TextField 
+                            style={{ marginBottom: '15px'}} 
+                            label="Curso" 
+                            variant="outlined" 
+                            size="small" 
+                            onChange={(event) => this.handleChangeCurso(event)} 
+                        />
+                        <TextField 
+                            style={{ marginBottom: '15px'}} 
+                            label="Cod Curso" 
+                            variant="outlined" 
+                            size="small" onChange={(event) => this.handleChangeCodCurso(event)} 
+                        />
+                    </form>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" color="primary" style={{textTransform:"none"}} onClick={() => this.handleClickInscrever()}>
-                        Inscrever Aluno
+                    <Button variant="contained" color="primary" style={{ textTransform: "none" }} onClick={() => this.handleClickInscrever()}>
+                        Salvar
                     </Button>
                 </Grid>
             </Grid>
-      );
+        );
     }
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { Link } from "react-router-dom";
-import { Route, Switch } from "react-router";
+import { Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import ListaAlunos from '../views/ListaAlunos';
 import ListaTimes from '../views/ListaTimes';
@@ -17,7 +17,7 @@ import CadastroAlunos from '../views/CadastroAlunos';
 export default function Routes() {
 
     const history = createBrowserHistory();
-
+    
     return (
         <Router history={history}>
             <AppBar position="static">
@@ -29,6 +29,9 @@ export default function Routes() {
                 </Tabs>
             </AppBar>
             <Switch>
+            <Route exact path="/">
+                 <Redirect to="/alunos" />
+            </Route>
                 <Route exact path="/alunos" component={ListaAlunos}/>
                 <Route exact path="/alunos/cadastro" component={CadastroAlunos}/>
                 <Route exact path="/times" component={ListaTimes}/>

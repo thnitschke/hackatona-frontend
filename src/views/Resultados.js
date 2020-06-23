@@ -20,8 +20,8 @@ export default class Resultados extends Component {
         };
     }
     async componentDidMount() {
-        let avaliacoes = await getAvaliacoes()
-        this.setState({ arrayAvaliacoes: avaliacoes });
+        let resultados = await getAvaliacoes()
+        this.setState({ arrayAvaliacoes: resultados.filter(resultado => resultado.total > 0) });
     }
 
     render() {
@@ -35,6 +35,7 @@ export default class Resultados extends Component {
                         <Table aria-label="simple table">
                             <TableHead>
                                     <TableRow>
+                                        <TableCell align="center">Posição</TableCell>
                                         <TableCell align="center">Time</TableCell>
                                         <TableCell align="center">Software</TableCell>
                                         <TableCell align="center">Processo</TableCell>
@@ -45,8 +46,9 @@ export default class Resultados extends Component {
                                     </TableRow>
                                 </TableHead>
                             <TableBody>
-                            {this.state.arrayAvaliacoes?.map((avaliacao) => (
+                            {this.state.arrayAvaliacoes?.map((avaliacao, index) => (
                                 <TableRow key={avaliacao.timeDTO.id}>
+                                    <TableCell align="center"><b>{index+1 + "º"}</b></TableCell>
                                     <TableCell align="center">{avaliacao.timeDTO.nome}</TableCell>
                                     <TableCell align="center">{avaliacao.software}</TableCell>
                                     <TableCell align="center">{avaliacao.processo}</TableCell>

@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import {postCadastraTime} from '../services/index'
+import ListaIntegrantes from './ListaIntegrantes';
 
 export default class CadastroTime extends Component {
     constructor(props) {
@@ -11,13 +12,6 @@ export default class CadastroTime extends Component {
         this.state = {
             nome: '',
         };
-    }
-
-    async handleClickCadastrar(){
-        if(this.state.nome) {
-            await postCadastraTime(this.state.nome)
-            this.props.history.push("/times")
-        }
     }
 
     handleChange(event){
@@ -35,16 +29,7 @@ export default class CadastroTime extends Component {
                 <Grid item xs={12} >
                     <TextField  label="Nome do time" variant="outlined" size="small" onChange={(event) => this.handleChange(event)}/>
                 </Grid>
-                <Grid item xs={12}>
-                    <Button 
-                        variant="contained" 
-                        color="primary"  
-                        style={{textTransform:"none"}}
-                        onClick={() => this.handleClickCadastrar()}
-                    >
-                        Salvar
-                    </Button>
-                </Grid>
+                <ListaIntegrantes hideTitle={true}/>
             </Grid>
       );
     }

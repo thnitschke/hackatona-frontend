@@ -11,14 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {getAlunos} from '../services/index'
-import {postAlunosInscritos} from '../services/index'
 
-export default class CadastroAlunos extends Component {
+export default class ListaAlunos extends Component {
     constructor(props) {
         super(props);
         this.state = {
             alunos: [],
-            alunosInscritos: []
         };
     }
     async componentDidMount() {
@@ -26,18 +24,8 @@ export default class CadastroAlunos extends Component {
         this.setState({ alunos: arrayAlunos });
     }
 
-    handleChangeCheckbox(checked, value) { //Armazena no state aluno inscrito
-        if(checked) {
-            this.state.alunosInscritos.push(value)
-        }
-        else  {
-            let index = this.state.alunosInscritos.indexOf(value) 
-            this.state.alunosInscritos.splice(index, 1);
-        }
-    }
     async handleClickInscrever(){ 
-        await postAlunosInscritos(this.state.alunosInscritos)
-        this.props.history.push("/times")
+        this.props.history.push("/")
     }
     render() {
         return (

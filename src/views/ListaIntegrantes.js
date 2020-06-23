@@ -21,7 +21,7 @@ export default class ListaIntegrantes extends Component {
         super(props);
         this.state = {
             alunosInscritos: [],
-            time: this.props.location.dados || {}
+            time: this.props.location?.dados || {}
         };
     }
 
@@ -50,11 +50,13 @@ export default class ListaIntegrantes extends Component {
     render() {    
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
-                <Grid item xs={12} >
-                    <Typography variant="h4" >
-                        Adicionar Integrantes
-                    </Typography>
-                </Grid>
+                {!this.props.hideTitle &&
+                    <Grid item xs={12} >
+                        <Typography variant="h4" >
+                            Adicionar Integrantes
+                        </Typography>
+                    </Grid>
+                }
                 <Grid item xs={12} style={{width: '900px'}}>
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">

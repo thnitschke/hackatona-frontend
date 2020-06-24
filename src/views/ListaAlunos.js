@@ -24,9 +24,15 @@ export default class ListaAlunos extends Component {
         this.setState({ alunos: arrayAlunos });
     }
 
+    async componentDidUpdate() {
+        let arrayAlunos = await getAlunos()
+        this.setState({ alunos: arrayAlunos });
+    }
+
     async handleClickInscrever(){ 
         this.props.history.push("/alunos/cadastro")
     }
+    
     render() {
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>

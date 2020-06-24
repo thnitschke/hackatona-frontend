@@ -11,9 +11,9 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {getTimes} from '../services/index'
-import {deleteTimes} from '../services/index'
+import SettingsIcon from '@material-ui/icons/Settings';
+import {getTimes, deleteTime} from '../services/index'
+import { showNotification } from '../components/notification';
 
 export default class ListaTimes extends Component {
     constructor(props) {
@@ -28,10 +28,12 @@ export default class ListaTimes extends Component {
     }
 
     async handleDelete(time) {
-        await deleteTimes(time)
-        let index = this.state.arrayTimes.indexOf(time)
-        this.state.arrayTimes.splice(index, 1);
-        this.setState({});
+        let result = await deleteTime(time.id)
+        if(result) {
+            let times = await getTimes()
+            this.setState({ arrayTimes: times });
+            showNotification("Time foi excluido com sucesso", "Time excluido", "success")
+        }
     }
     render() {
         return (
@@ -46,7 +48,7 @@ export default class ListaTimes extends Component {
                                     <TableRow>
                                         <TableCell align="center">Nome do time</TableCell>
                                         <TableCell align="center">Membros</TableCell>
-                                        <TableCell align="center">Adicionar Integrantes</TableCell>
+                                        <TableCell align="center">Gerenciar Integrantes</TableCell>
                                         <TableCell align="center">Excluir time</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -62,7 +64,7 @@ export default class ListaTimes extends Component {
                                                 dados: {id: time.id, nome: time.nome, integrantes: time.alunos}
                                             }}
                                         >
-                                            <AddCircleIcon color="primary" />
+                                            <SettingsIcon color="primary" />
                                         </Link>
                                     </TableCell>
                                     <TableCell align="center">

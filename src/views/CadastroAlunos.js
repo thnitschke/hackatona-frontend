@@ -9,32 +9,34 @@ export default class CadastroAlunos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            matricula:'', 
-            sugestao:'', 
-            curso:'', 
-            id_curso:'', 
-            nome:''
+            aluno: {
+                matricula:'', 
+                sugestao:'', 
+                curso:'', 
+                id_curso:'', 
+                nome:''
+            }
         };
     }
 
     handleChangeNome(event) {
-        this.setState({matricula: event.target.value});
+        this.setState({aluno: {...this.state.aluno, nome: event.target.value}});
     }
     handleChangeMatricula(event) {
-        this.setState({sugestao: event.target.value});
+        this.setState({aluno: {...this.state.aluno, matricula: event.target.value}});
     }
     handleChangeSugestao(event) {
-        this.setState({curso: event.target.value});
+        this.setState({aluno: {...this.state.aluno, sugestao: event.target.value}});
     }
     handleChangeCurso(event) {
-        this.setState({id_curso: event.target.value});
+        this.setState({aluno: {...this.state.aluno, curso: event.target.value}});
     }
     handleChangeCodCurso(event) {
-        this.setState({nome: event.target.value});
+        this.setState({aluno: {...this.state.aluno, id_curso: event.target.value}});
     }
 
     async handleClickInscrever() {
-        await postAluno(this.state)
+        await postAluno(this.state.aluno)
         this.props.history.push("/alunos")
     }
     render() {

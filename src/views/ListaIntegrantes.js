@@ -12,43 +12,48 @@ import TableRow from '@material-ui/core/TableRow';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import {getAlunos} from '../services/index'
-import {patchIntegrantesDoTime} from '../services/index'
-import {deleteIntegranteDoTime} from '../services/index'
+import {getAlunos, postIntegrante, deleteIntegrante} from '../services/index'
 
 export default class ListaIntegrantes extends Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
             alunos: [],
-            time: this.props.location?.dados || null
+            time: this.props.location.dados || this.props.location.state.dados
         };
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.atualizaIntegrantes()
+    }
+    
+    async atualizaIntegrantes() {
         let alunosInscritos = await getAlunos()
-        this.setState({ alunos: alunosInscritos });
+        alunosInscritos = alunosInscritos.filter(aluno => aluno.time === null || aluno.time.id === this.state.time.id)
+        this.setState({ alunos: alunosInscritos});
     }
 
     async handleAdd(aluno) {
-        if(!this.state.time) return
         if(this.pertenceAoTime(aluno, this.state.time)) return
         
-        await patchIntegrantesDoTime(aluno, this.state.time)
-        this.setState({})
+        let response = await postIntegrante(aluno.id, this.state.time.id)
+        if(response){
+            await this.atualizaIntegrantes()
+        }
     }
     
     async handleDelete(aluno) {
-        if(!this.state.time) return
         if(!this.pertenceAoTime(aluno, this.state.time)) return
-        await deleteIntegranteDoTime(aluno, this.state.time)
-        this.setState({})
+        
+        let response = await deleteIntegrante(aluno.id)
+        if(response) {
+            await this.atualizaIntegrantes()
+        }
     }
 
     pertenceAoTime(aluno, time){
-        if(!time) return
-        const ehDoTime = time.integrantes.filter(element => aluno.id === element.id)
-        return !!ehDoTime && ehDoTime.length > 0
+        return !!aluno.time
     }
 
     render() {  
@@ -57,7 +62,7 @@ export default class ListaIntegrantes extends Component {
                 {!this.props.hideTitle &&
                     <Grid item xs={12} >
                         <Typography variant="h4" >
-                            Adicionar Integrantes
+                            Integrantes Time {this.state.time?.nome}
                         </Typography>
                     </Grid>
                 }
@@ -99,7 +104,7 @@ export default class ListaIntegrantes extends Component {
                 </Grid>
                 <Grid item xs={12} alignItems="center" justify="center">
                     <Button component={Link} to={'/times'} variant="contained" color="primary" style={{textTransform:"none"}}>
-                        Salvar
+                        Voltar
                     </Button>
                 </Grid>
             </Grid>

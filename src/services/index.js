@@ -25,7 +25,7 @@ export const getTimes = () => {
   })
 };
 
-export const getAvaliacoes = () => {
+export const getResultados = () => {
   return axios.get('http://localhost:8080/api/time/resultado')
   .then(function (response) {
     // handle success
@@ -93,7 +93,6 @@ export const deleteIntegrante = (idAluno) => {
   })
 };
 
-
 export const deleteTime = (idAluno) => {
   return axios.delete('http://localhost:8080/api/time/excluir/?id='+ idAluno)
   .then(function (response) {
@@ -108,3 +107,28 @@ export const deleteTime = (idAluno) => {
   })
 };
 
+export const getAvaliacoesPorAvaliador = (idAvaliador) => {
+  return axios.get('http://localhost:8080/api/avaliacao/list/avaliador/?id='+ idAvaliador)
+  .then(function (response) {
+    // handle success
+    return response.data.content.list
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+};
+
+export const postAvaliacaoDoAvaliador = (avaliacao) => {
+  return axios.post('http://localhost:8080/api/avaliacao/avaliar/?idUsuario=2', avaliacao)
+  .then(function (response) {
+    // handle success
+    console.log(response)
+    return response
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    return error
+  })
+};

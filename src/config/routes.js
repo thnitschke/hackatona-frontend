@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import Home from '../views/Home';
@@ -15,22 +15,21 @@ import Header from '../components/Header'
 export default function Routes() {
 
     const history = createBrowserHistory();
-    
+
     return (
         <Router history={history}>
-              
             <Switch>
-            <Header>
-              <Route exact path="/" component={Home} />
-                <Route exact path="/alunos" component={ListaAlunos}/>
-                <Route exact path="/alunos/cadastro" component={CadastroAlunos}/>
-                <Route exact path="/times" component={ListaTimes}/>
-                <Route exact path="/times/cadastro" component={CadastroTime}/>
-                <Route exact path="/integrantes" component={ListaIntegrantes}/>
-                <Route exact path="/avaliacao" component={FichaAvaliacao}/>
-                <Route exact path="/resultados" component={Resultados}/>
+                <Header>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/alunos" component={ListaAlunos} />
+                    <Route exact path="/alunos/cadastro" component={CadastroAlunos} />
+                    <Route exact path="/times" component={ListaTimes} />
+                    <Route exact path="/times/cadastro" component={CadastroTime} />
+                    <Route exact path="/integrantes" component={ListaIntegrantes} />
+                    <Route exact path="/avaliacao" component={FichaAvaliacao} />
+                    <Route exact path="/resultados" component={Resultados} />
                 </Header>
-            </Switch>        
+            </Switch>
         </Router>
     );
 }

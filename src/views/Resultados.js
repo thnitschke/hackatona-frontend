@@ -5,11 +5,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
 import Title from '../components/Title';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {getAvaliacoes} from '../services/index'
+import {getResultados} from '../services/index'
 
 
 export default class Resultados extends Component {
@@ -20,7 +19,7 @@ export default class Resultados extends Component {
         };
     }
     async componentDidMount() {
-        let resultados = await getAvaliacoes()
+        let resultados = await getResultados()
         this.setState({ arrayAvaliacoes: resultados.filter(resultado => resultado.total > 0) });
     }
 

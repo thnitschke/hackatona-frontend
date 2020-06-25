@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -13,173 +13,157 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import {getTimes} from '../services/index'
+import { getAvaliacoesPorAvaliador, postAvaliacaoDoAvaliador } from '../services/index'
+import { showNotification } from '../components/notification';
 
 export default class FichaAvaliacao extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      teams: [],
-      selectedTeamIndex: 0,
-      workingSoftware: "0",
+      avaliacoes: [],
+      selectedTeamIndex: -1,
+      software: "0",
       process: "0",
       pitch: "0",
       innovation: "0",
-      teamFormation: "0",
     };
   }
 
   componentDidMount = async () => {
-    let teams = await getTimes()
-    this.setState({ teams: teams });
+    let idAvaliador = 2
+    let avaliacoesTimes = await getAvaliacoesPorAvaliador(idAvaliador)
+    this.setState({ avaliacoes: avaliacoesTimes });
   };
 
   handleWorkingSoftwareChange = (event) => {
-    this.setState({workingSoftware: event.target.value});
+    this.setState({ software: event.target.value });
   }
+
   handleProcessChange = (event) => {
-    this.setState({process: event.target.value});
+    this.setState({ process: event.target.value });
   }
+
   handlePitchChange = (event) => {
-    this.setState({pitch: event.target.value});
+    this.setState({ pitch: event.target.value });
   }
+
   handleInnovationChange = (event) => {
-    this.setState({innovation: event.target.value});
-  }
-  handleTeamFormationChange = (event) => {
-    this.setState({teamFormation: event.target.value});
+    this.setState({ innovation: event.target.value });
   }
 
-  resetValues = () => {
-      this.setState({
-          workingSoftware: "0",
-          process: "0",
-          pitch: "0",
-          innovation: "0",
-          teamFormation: "0",
-      });
+  openAvaliacao = (avaliacao, index) => {
+    this.setState({
+      selectedTeamIndex: index,
+      innovation: avaliacao.inovacao + '',
+      software: avaliacao.software + '',
+      process: avaliacao.processo + '',
+      pitch: avaliacao.pitch + '',
+    });
   }
 
-  saveRatings = () => {
-      let changedTeam = {
-          ...this.state.teams[this.state.selectedTeamIndex],
-          workingSoftware: this.state.workingSoftware,
-          process: this.state.process,
-          pitch: this.state.pitch,
-          innovation: this.state.innovation,
-          teamFormation: this.state.teamFormation
-      }
-      this.state.teams[this.state.selectedTeamIndex] = changedTeam
-      this.setState({
-        workingSoftware: "0",
-        process: "0",
-        pitch: "0",
-        innovation: "0",
-        teamFormation: "0",
-      })
+  saveRatings = async (idAvaliador) => { 
+    if(!this.state.innovation || !this.state.software || !this.state.process  || !this.state.pitch ) {
+      showNotification("É necessário selecionar todos os campos", "Erro", "danger")
+      return
+    }
+    const avaliacao = { 
+      id: idAvaliador,
+      inovacao: parseInt(this.state.innovation), 
+      software: parseInt(this.state.software), 
+      processo: parseInt(this.state.process), 
+      pitch: parseInt(this.state.pitch)
+    }
+    let result = await postAvaliacaoDoAvaliador(avaliacao)
+    if(result) {
+      let idAvaliador = 2
+      let avaliacoesTimes = await getAvaliacoesPorAvaliador(idAvaliador)
+      this.setState({ avaliacoes: avaliacoesTimes, selectedTeamIndex: -1 });
+      showNotification("Avaliação enviada com sucesso", "Enviado", "success")
+    }
   }
 
   render() {
     return (
-      <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
+      <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{ marginTop: '10px' }}>
         <Grid item xs={12}>
           <Typography variant="h4">
             Avaliar times
           </Typography>
         </Grid>
-        <Grid item style={{width: "50%"}}>
-          {this.state.teams?.map((team, index) => (
-          <ExpansionPanel TransitionProps={{unmountOnExit: true}} onChange={() => this.setState({selectedTeamIndex: index})}>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon/>}
-              aria-controls={"panel" + index + "c-content"}
-              id={"panel" + index + "c-header"}
-            >
-              <Typography variant="h6">{"Time: " + team.nome}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Grid container justify="center" alignItems="center" spacing={12} direction="column">
-                <FormControl>
-                  <FormLabel component="legend">Software funcionando:</FormLabel>
-                  <RadioGroup aria-label="rating1" name="rating1" value={this.state.workingSoftware} onChange={this.handleWorkingSoftwareChange}>
-                    <Grid item xs={12}>
-                      <FormControlLabel value={"0"} control={<Radio/>} label="Ruim" labelPlacement="start"
-                                        style={{paddingRight: "2vw"}}/>
-                      <FormControlLabel value={"1"} control={<Radio/>}/>
-                      <FormControlLabel value={"2"} control={<Radio/>}/>
-                      <FormControlLabel value={"3"} control={<Radio/>}/>
-                      <FormControlLabel value={"4"} control={<Radio/>}/>
-                      <FormControlLabel value={"5"} control={<Radio/>} label="Excelente" labelPlacement="end"/>
-                    </Grid>
-                  </RadioGroup>
-                </FormControl>
-                <FormControl>
-                  <FormLabel component="legend">Processo:</FormLabel>
-                  <RadioGroup aria-label="rating2" name="rating2" value={this.state.process} onChange={this.handleProcessChange}>
-                    <Grid item xs={12}>
-                      <FormControlLabel value={"0"} control={<Radio/>} label="Ruim" labelPlacement="start"
-                                        style={{paddingRight: "2vw"}}/>
-                      <FormControlLabel value={"1"} control={<Radio/>}/>
-                      <FormControlLabel value={"2"} control={<Radio/>}/>
-                      <FormControlLabel value={"3"} control={<Radio/>}/>
-                      <FormControlLabel value={"4"} control={<Radio/>}/>
-                      <FormControlLabel value={"5"} control={<Radio/>} label="Excelente" labelPlacement="end"/>
-                    </Grid>
-                  </RadioGroup>
-                </FormControl>
-                <FormControl>
-                  <FormLabel component="legend">Pitch</FormLabel>
-                  <RadioGroup aria-label="rating3" name="rating3" value={this.state.pitch} onChange={this.handlePitchChange}>
-                    <Grid item xs={12}>
-                      <FormControlLabel value={"0"} control={<Radio/>} label="Ruim" labelPlacement="start"
-                                        style={{paddingRight: "2vw"}}/>
-                      <FormControlLabel value={"1"} control={<Radio/>}/>
-                      <FormControlLabel value={"2"} control={<Radio/>}/>
-                      <FormControlLabel value={"3"} control={<Radio/>}/>
-                      <FormControlLabel value={"4"} control={<Radio/>}/>
-                      <FormControlLabel value={"5"} control={<Radio/>} label="Excelente" labelPlacement="end"/>
-                    </Grid>
-                  </RadioGroup>
-                </FormControl>
-                <FormControl>
-                  <FormLabel component="legend">Inovação</FormLabel>
-                  <RadioGroup aria-label="rating4" name="rating4" value={this.state.innovation} onChange={this.handleInnovationChange}>
-                    <Grid item xs={12}>
-                      <FormControlLabel value={"0"} control={<Radio/>} label="Ruim" labelPlacement="start"
-                                        style={{paddingRight: "2vw"}}/>
-                      <FormControlLabel value={"1"} control={<Radio/>}/>
-                      <FormControlLabel value={"2"} control={<Radio/>}/>
-                      <FormControlLabel value={"3"} control={<Radio/>}/>
-                      <FormControlLabel value={"4"} control={<Radio/>}/>
-                      <FormControlLabel value={"5"} control={<Radio/>} label="Excelente" labelPlacement="end"/>
-                    </Grid>
-                  </RadioGroup>
-                </FormControl>
-                <FormControl>
-                  <FormLabel component="legend">Formação do time</FormLabel>
-                  <RadioGroup aria-label="rating5" name="rating5" value={this.state.teamFormation} onChange={this.handleTeamFormationChange}>
-                    <Grid item xs={12}>
-                      <FormControlLabel value={"0"} control={<Radio/>} label="Ruim" labelPlacement="start"
-                                        style={{paddingRight: "2vw"}}/>
-                      <FormControlLabel value={"1"} control={<Radio/>}/>
-                      <FormControlLabel value={"2"} control={<Radio/>}/>
-                      <FormControlLabel value={"3"} control={<Radio/>}/>
-                      <FormControlLabel value={"4"} control={<Radio/>}/>
-                      <FormControlLabel value={"5"} control={<Radio/>} label="Excelente" labelPlacement="end"/>
-                    </Grid>
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-            </ExpansionPanelDetails>
-            <Divider/>
-            <ExpansionPanelActions>
-              <Button size="small" onClick={this.resetValues}>Limpar</Button>
-              <Button size="small" color="primary" onClick={this.saveRatings}>
-                Salvar
-              </Button>
-            </ExpansionPanelActions>
-          </ExpansionPanel>
+        <Grid item style={{ width: "50%" }}>
+          {this.state.avaliacoes.map((avaliacao, index) => (
+            <ExpansionPanel expanded={this.state.selectedTeamIndex === index} TransitionProps={{ unmountOnExit: true }} onChange={() => this.openAvaliacao(avaliacao, index)}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={"panel" + index + "c-content"}
+                id={"panel" + index + "c-header"}
+              >
+                <Typography variant="h6">{"Time: " + avaliacao.time.nome}</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Grid container justify="center" alignItems="center" spacing={12} direction="column">
+                  <FormControl>
+                    <FormLabel component="legend">Software funcionando:</FormLabel>
+                    <RadioGroup value={this.state.software} onChange={this.handleWorkingSoftwareChange}>
+                      <Grid item xs={12}>
+                        <FormControlLabel value={"0"} control={<Radio />} label="Ruim" labelPlacement="start" />
+                        <Radio value="1" />
+                        <Radio value="2" />
+                        <Radio value="3" />
+                        <Radio value="4" />
+                        <FormControlLabel value={"5"} control={<Radio />} label="Excelente" labelPlacement="end" />
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Processo:</FormLabel>
+                    <RadioGroup value={this.state.process} onChange={this.handleProcessChange}>
+                      <Grid item xs={12}>
+                        <FormControlLabel value={"0"} control={<Radio />} label="Ruim" labelPlacement="start" />
+                        <Radio value="1" />
+                        <Radio value="2" />
+                        <Radio value="3" />
+                        <Radio value="4" />
+                        <FormControlLabel value={"5"} control={<Radio />} label="Excelente" labelPlacement="end" />
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Pitch</FormLabel>
+                    <RadioGroup value={this.state.pitch} onChange={this.handlePitchChange}>
+                      <Grid item xs={12}>
+                        <FormControlLabel value={"0"} control={<Radio />} label="Ruim" labelPlacement="start" />
+                        <Radio value="1" />
+                        <Radio value="2" />
+                        <Radio value="3" />
+                        <Radio value="4" />
+                        <FormControlLabel value={"5"} control={<Radio />} label="Excelente" labelPlacement="end" />
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Inovação</FormLabel>
+                    <RadioGroup value={this.state.innovation} onChange={this.handleInnovationChange}>
+                      <Grid item xs={12}>
+                        <FormControlLabel value={"0"} control={<Radio />} label="Ruim" labelPlacement="start" />
+                        <Radio value="1" />
+                        <Radio value="2" />
+                        <Radio value="3" />
+                        <Radio value="4" />
+                        <FormControlLabel value={"5"} control={<Radio />} label="Excelente" labelPlacement="end" />
+                      </Grid>
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+              </ExpansionPanelDetails>
+              <Divider />
+              <ExpansionPanelActions>
+                <Button size="small" color="primary" onClick={() => this.saveRatings(avaliacao.id)}>
+                  Salvar
+                </Button>
+              </ExpansionPanelActions>
+            </ExpansionPanel>
           )
           )
           }

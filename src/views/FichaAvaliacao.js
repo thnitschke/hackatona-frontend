@@ -31,8 +31,7 @@ export default class FichaAvaliacao extends Component {
   }
 
   componentDidMount = async () => {
-    let idAvaliador = 2
-    let avaliacoesTimes = await getAvaliacoesPorAvaliador(idAvaliador)
+    let avaliacoesTimes = await getAvaliacoesPorAvaliador()
     this.setState({ avaliacoes: avaliacoesTimes });
   };
 

@@ -38,7 +38,7 @@ export const getResultados = () => {
 };
 
 export const postAluno = (dto) => {
-    axios.post('http://localhost:8080/api/aluno/cadastrar?idUsuario=1', dto)
+    axios.post('http://localhost:8080/api/aluno/cadastrar?idUsuario='+sessionStorage.getItem("id"), dto)
     .then(function (response) {
       // handle success
       console.log(response)
@@ -107,8 +107,8 @@ export const deleteTime = (idAluno) => {
   })
 };
 
-export const getAvaliacoesPorAvaliador = (idAvaliador) => {
-  return axios.get('http://localhost:8080/api/avaliacao/list/avaliador/?id='+ idAvaliador)
+export const getAvaliacoesPorAvaliador = () => {
+  return axios.get('http://localhost:8080/api/avaliacao/list/avaliador/?id='+sessionStorage.getItem("id"))
   .then(function (response) {
     // handle success
     return response.data.content.list
@@ -120,7 +120,7 @@ export const getAvaliacoesPorAvaliador = (idAvaliador) => {
 };
 
 export const postAvaliacaoDoAvaliador = (avaliacao) => {
-  return axios.post('http://localhost:8080/api/avaliacao/avaliar/?idUsuario=2', avaliacao)
+  return axios.post('http://localhost:8080/api/avaliacao/avaliar/?idUsuario='+sessionStorage.getItem("id"), avaliacao)
   .then(function (response) {
     // handle success
     console.log(response)
@@ -130,5 +130,19 @@ export const postAvaliacaoDoAvaliador = (avaliacao) => {
     // handle error
     console.log(error);
     return error
+  })
+};
+
+export const getUsuario = (login, password) => {
+  return axios.get('http://localhost:8080/api/usuario/usuario/?usuario='+login, {
+  })
+  .then(function (response) {
+    // handle success
+    return response.data
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    return undefined
   })
 };

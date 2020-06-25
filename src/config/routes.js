@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
-import Home from '../views/Home';
+import Login from '../views/Login';
 import ListaAlunos from '../views/ListaAlunos';
 import ListaTimes from '../views/ListaTimes';
 import CadastroTime from '../views/CadastroTime'
@@ -20,7 +20,7 @@ export default function Routes() {
         <Router history={history}>
             <Switch>
                 <Header>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/" component={Login} />
                     <Route exact path="/alunos" component={ListaAlunos} />
                     <Route exact path="/alunos/cadastro" component={CadastroAlunos} />
                     <Route exact path="/times" component={ListaTimes} />

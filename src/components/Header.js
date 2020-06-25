@@ -20,7 +20,7 @@ export default class Header extends Component {
                     <Tab component={Link} to={'/alunos'} label="Alunos" />
                     <Tab component={Link} to={'/times'} label="Times" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
-                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.setItem("tipoUsuario", -1)}/>
+                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.clear()}/>
                 </Tabs>
             </AppBar>
         )
@@ -32,7 +32,7 @@ export default class Header extends Component {
                 <Tabs aria-label="simple tabs example">
                     <Tab component={Link} to={'/avaliacao'} label="Avaliação" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
-                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.setItem("tipoUsuario", -1)}/>
+                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.clear()}/>
                 </Tabs>
             </AppBar>
         )

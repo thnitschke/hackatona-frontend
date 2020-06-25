@@ -24,9 +24,11 @@ export default class ListaAlunos extends Component {
         this.setState({ alunos: arrayAlunos });
     }
 
-    async componentDidUpdate() {
-        let arrayAlunos = await getAlunos()
-        this.setState({ alunos: arrayAlunos });
+    async componentDidUpdate(nextProps) {    
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            let arrayAlunos = await getAlunos()
+            this.setState({ alunos: arrayAlunos });
+        }
     }
 
     async handleClickInscrever(){ 

@@ -20,6 +20,7 @@ export default class Header extends Component {
                     <Tab component={Link} to={'/alunos'} label="Alunos" />
                     <Tab component={Link} to={'/times'} label="Times" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
+                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.setItem("tipoUsuario", -1)}/>
                 </Tabs>
             </AppBar>
         )
@@ -31,6 +32,7 @@ export default class Header extends Component {
                 <Tabs aria-label="simple tabs example">
                     <Tab component={Link} to={'/avaliacao'} label="Avaliação" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
+                    <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.setItem("tipoUsuario", -1)}/>
                 </Tabs>
             </AppBar>
         )
@@ -43,7 +45,7 @@ export default class Header extends Component {
         if (this.state.value != value)
          this.setState({
                 value: value,
-                header: value == 1 ? this.setHeaderAdmin() : this.setHeaderAvaliador()
+                header: value == 1 ? this.setHeaderAdmin() : value == 2 ? this.setHeaderAvaliador() : null
          }) 
     }
 

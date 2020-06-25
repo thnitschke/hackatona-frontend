@@ -23,7 +23,7 @@ export default class FichaAvaliacao extends Component {
     this.state = {
       avaliacoes: [],
       selectedTeamIndex: -1,
-      workingSoftware: "0",
+      software: "0",
       process: "0",
       pitch: "0",
       innovation: "0",
@@ -37,7 +37,7 @@ export default class FichaAvaliacao extends Component {
   };
 
   handleWorkingSoftwareChange = (event) => {
-    this.setState({ workingSoftware: event.target.value });
+    this.setState({ software: event.target.value });
   }
 
   handleProcessChange = (event) => {
@@ -56,19 +56,23 @@ export default class FichaAvaliacao extends Component {
     this.setState({
       selectedTeamIndex: index,
       innovation: avaliacao.inovacao + '',
-      workingSoftware: avaliacao.software + '',
+      software: avaliacao.software + '',
       process: avaliacao.processo + '',
       pitch: avaliacao.pitch + '',
     });
   }
 
   saveRatings = async (idAvaliador) => { 
+    if(!this.state.innovation || !this.state.software || !this.state.process  || !this.state.pitch ) {
+      showNotification("É necessário selecionar todos os campos", "Erro", "danger")
+      return
+    }
     const avaliacao = { 
       id: idAvaliador,
-      inovacao: parseInt(this.state.innovation || 0), 
-      software: parseInt(this.state.software || 0), 
-      processo: parseInt(this.state.process || 0), 
-      pitch: parseInt(this.state.pitch || 0)
+      inovacao: parseInt(this.state.innovation), 
+      software: parseInt(this.state.software), 
+      processo: parseInt(this.state.process), 
+      pitch: parseInt(this.state.pitch)
     }
     let result = await postAvaliacaoDoAvaliador(avaliacao)
     if(result) {
@@ -101,7 +105,7 @@ export default class FichaAvaliacao extends Component {
                 <Grid container justify="center" alignItems="center" spacing={12} direction="column">
                   <FormControl>
                     <FormLabel component="legend">Software funcionando:</FormLabel>
-                    <RadioGroup value={this.state.workingSoftware} onChange={this.handleWorkingSoftwareChange}>
+                    <RadioGroup value={this.state.software} onChange={this.handleWorkingSoftwareChange}>
                       <Grid item xs={12}>
                         <FormControlLabel value={"0"} control={<Radio />} label="Ruim" labelPlacement="start" />
                         <Radio value="1" />

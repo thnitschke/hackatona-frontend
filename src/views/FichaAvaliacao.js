@@ -75,7 +75,6 @@ export default class FichaAvaliacao extends Component {
     }
     let result = await postAvaliacaoDoAvaliador(avaliacao)
     if(result) {
-      let idAvaliador = 2
       let avaliacoesTimes = await getAvaliacoesPorAvaliador(idAvaliador)
       this.setState({ avaliacoes: avaliacoesTimes, selectedTeamIndex: -1 });
       showNotification("Avaliação enviada com sucesso", "Enviado", "success")

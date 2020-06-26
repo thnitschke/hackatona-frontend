@@ -16,7 +16,7 @@ export default class Header extends Component {
     setHeaderAdmin() {
         return (
             <AppBar position="static">
-                <Tabs aria-label="simple tabs example">
+                <Tabs aria-label="simple tabs">
                     <Tab component={Link} to={'/alunos'} label="Alunos" />
                     <Tab component={Link} to={'/times'} label="Times" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
@@ -29,7 +29,7 @@ export default class Header extends Component {
     setHeaderAvaliador() {
         return (
             <AppBar position="static">
-                <Tabs aria-label="simple tabs example">
+                <Tabs aria-label="simple tabs">
                     <Tab component={Link} to={'/avaliacao'} label="Avaliação" />
                     <Tab component={Link} to={'/resultados'} label="Resultados" />
                     <Tab component={Link} to={'/'} label="Sair" onClick={() =>  sessionStorage.clear()}/>
@@ -40,18 +40,18 @@ export default class Header extends Component {
 
 
     async componentDidUpdate() {
-        console.log("entrou")
         const value = await sessionStorage.getItem("tipoUsuario")
-        if (this.state.value != value)
-         this.setState({
+        if (this.state.value != value) {
+            this.setState({
                 value: value,
                 header: value == 1 ? this.setHeaderAdmin() : value == 2 ? this.setHeaderAvaliador() : null
-         }) 
+            }) 
+        }
     }
 
     render() {
         return (
-            <>
+        <>
         {this.state.header}
         {this.props.children}
         </>

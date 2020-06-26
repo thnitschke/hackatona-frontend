@@ -41,7 +41,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <Grid container justify="center" alignItems="center" spacing={6} style={{ marginTop: '10px' }}>
+      <Grid container justify="center" alignItems="center" spacing={6} style={{ marginTop: '170px', textAlign: 'center' }}>
         <Grid>
           <Grid item justify="center" alignItems="center">
             <Typography variant="h4" >
@@ -51,7 +51,7 @@ export default class Login extends Component {
               Informe suas credenciais:
            </Typography>
           </Grid>
-          <Grid container justify="center" alignItems="center" spacing={4} style={{ marginTop: '10px', marginLeft: 10 }}>
+          <Grid container justify="center" alignItems="center" spacing={4} style={{ marginTop: '10px' }}>
             <Grid item xs={12} >
               <TextField label="Usuario" variant="outlined" size="small" onChange={(event) => this.setState({ login: event.target.value })} />
             </Grid>
@@ -62,11 +62,11 @@ export default class Login extends Component {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginLeft: 80, textTransform: "none" }}
+                style={{ textTransform: "none" }}
                 onClick={() => this.handleLogin()}
               >
                 Login
-                    </Button>
+              </Button>
             </Grid>
           </Grid>
         </Grid>

@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import SettingsIcon from '@material-ui/icons/Settings';
-import {getTimes, deleteTime} from '../services/index'
+import {getTimes, deleteTime, postAbrirAvaliacoes} from '../services/index'
 import { showNotification } from '../components/notification';
 
 export default class ListaTimes extends Component {
@@ -35,6 +35,16 @@ export default class ListaTimes extends Component {
             showNotification("Time foi excluido com sucesso", "Time excluido", "success")
         }
     }
+
+    async liberarAvaliacoes(){
+        const result = await postAbrirAvaliacoes();
+        if (result){
+            return showNotification("Avaliações liberadas aos times validos!", "Sucesso!", "success")
+        } else {
+            return showNotification("Time foi excluido com sucesso", "Erro", "success")
+        }
+    }
+
     render() {
         return (
             <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
@@ -84,6 +94,14 @@ export default class ListaTimes extends Component {
                         component={Link} to={'/times/cadastro'}
                     >
                         Adicionar time
+                    </Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        style={{marginLeft: 20, textTransform:"none"}}
+                        onClick={() => this.liberarAvaliacoes()}
+                    >
+                        Liberar Avaliações
                     </Button>
                 </Grid>
             </Grid>

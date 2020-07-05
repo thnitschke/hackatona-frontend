@@ -133,6 +133,20 @@ export const postAvaliacaoDoAvaliador = (avaliacao) => {
   })
 };
 
+export const postAbrirAvaliacoes = () => {
+  return axios.post('http://localhost:8080/api/avaliacao/abrirAvaliacoes/?idUsuario='+sessionStorage.getItem("id"))
+  .then(function (response) {
+    // handle success
+    console.log(response)
+    return response
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+    return error
+  })
+};
+
 export const getUsuario = (login, password) => {
   return axios.get('http://localhost:8080/api/usuario/usuario/?usuario='+login, {
   })

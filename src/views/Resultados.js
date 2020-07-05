@@ -8,7 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from '../components/Title';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import {getResultados} from '../services/index'
+import Typography from '@material-ui/core/Typography';
+import { getResultados } from '../services/index'
 
 
 export default class Resultados extends Component {
@@ -20,19 +21,21 @@ export default class Resultados extends Component {
     }
     async componentDidMount() {
         let resultados = await getResultados()
-        this.setState({ arrayAvaliacoes: resultados.filter(resultado => resultado.total > 0) });
+        this.setState({ arrayAvaliacoes: !!resultados ? resultados.filter(resultado => resultado.total > 0) : []});
     }
 
     render() {
-        return (
-            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{marginTop: '10px'}}>
-                <Grid item xs={12} >
-                    <Title text="Resultados"> </Title>
-                </Grid>
-                <Grid item xs={12} style={{width: '800px'}}>
-                    <TableContainer component={Paper}>
-                        <Table aria-label="simple table">
-                            <TableHead>
+        const { arrayAvaliacoes } = this.state
+        return !!arrayAvaliacoes && arrayAvaliacoes.length > 0 ?
+            (
+                <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{ marginTop: '10px' }}>
+                    <Grid item xs={12} >
+                        <Title text="Resultados"> </Title>
+                    </Grid>
+                    <Grid item xs={12} style={{ width: '800px' }}>
+                        <TableContainer component={Paper}>
+                            <Table aria-label="simple table">
+                                <TableHead>
                                     <TableRow>
                                         <TableCell align="center">Posição</TableCell>
                                         <TableCell align="center">Time</TableCell>
@@ -44,25 +47,33 @@ export default class Resultados extends Component {
                                         <TableCell align="center">Total de Pontos</TableCell>
                                     </TableRow>
                                 </TableHead>
-                            <TableBody>
-                            {this.state.arrayAvaliacoes?.map((avaliacao, index) => (
-                                <TableRow key={avaliacao.timeDTO.id}>
-                                    <TableCell align="center"><b>{index+1 + "º"}</b></TableCell>
-                                    <TableCell align="center">{avaliacao.timeDTO.nome}</TableCell>
-                                    <TableCell align="center">{avaliacao.software}</TableCell>
-                                    <TableCell align="center">{avaliacao.processo}</TableCell>
-                                    <TableCell align="center">{avaliacao.pitch}</TableCell>
-                                    <TableCell align="center">{avaliacao.inovacao}</TableCell>
-                                    <TableCell align="center">{avaliacao.avaliacoes}</TableCell>
-                                    <TableCell align="center">{avaliacao.total}</TableCell>
-                                </TableRow>
-                            ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                <TableBody>
+                                    {this.state.arrayAvaliacoes?.map((avaliacao, index) => (
+                                        <TableRow key={avaliacao.timeDTO.id}>
+                                            <TableCell align="center"><b>{index + 1 + "º"}</b></TableCell>
+                                            <TableCell align="center">{avaliacao.timeDTO.nome}</TableCell>
+                                            <TableCell align="center">{avaliacao.software}</TableCell>
+                                            <TableCell align="center">{avaliacao.processo}</TableCell>
+                                            <TableCell align="center">{avaliacao.pitch}</TableCell>
+                                            <TableCell align="center">{avaliacao.inovacao}</TableCell>
+                                            <TableCell align="center">{avaliacao.avaliacoes}</TableCell>
+                                            <TableCell align="center">{avaliacao.total}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                    </Grid>
                 </Grid>
-            </Grid>
-      );
+            ) :
+            <Grid container justify="center" alignItems="center" spacing={6} direction="column" style={{ marginTop: '10px' }}>
+                <Grid item xs={12} >
+                    <Title text="Resultados"> </Title>
+                </Grid>
+                <Typography variant="h6" >
+                    Nenhum resultado de time encontrado, solicite as avaliações.
+                </Typography>
+            </Grid>;
     }
 
 

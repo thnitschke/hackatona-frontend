@@ -58,8 +58,8 @@ export default class ListaAlunos extends Component {
                                                 src={'/static/images/avatar/'}
                                             />
                                         </ListItemAvatar>
-                                        <ListItemText primary={value.nome} />
-                                        <ListItemText primary={value.curso} />
+                                        <ListItemText primary={value.nome}  style={{width: '100px'}}/>
+                                        <ListItemText primary={value.curso}/>
                                     </ListItem>
                                 );
                             })}

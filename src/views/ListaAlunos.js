@@ -24,11 +24,13 @@ export default class ListaAlunos extends Component {
     }
 
     async componentDidUpdate(nextProps) {    
-        if (this.props.location.state.atualiza) {
+        if (!!this.props.location.state && this.props.location.state.atualiza) {
             let arrayAlunos = await getAlunos()
             this.setState({ alunos: arrayAlunos });
         } else {
-            this.props.location.state.atualiza = false;
+            this.props.location.state = {
+                atualiza: false
+            } 
         }
     }
 

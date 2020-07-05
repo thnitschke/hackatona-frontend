@@ -37,7 +37,7 @@ export default class CadastroAlunos extends Component {
 
     async handleClickInscrever() {
         await postAluno(this.state.aluno)
-        this.props.history.push("/alunos")
+        this.props.history.push("/alunos", {atualiza: true})
     }
     render() {
         return (

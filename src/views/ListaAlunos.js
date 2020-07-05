@@ -13,6 +13,7 @@ import {getAlunos} from '../services/index'
 export default class ListaAlunos extends Component {
     constructor(props) {
         super(props);
+        this.props.location.state = { atualiza: false}
         this.state = {
             alunos: [],
         };
@@ -23,9 +24,11 @@ export default class ListaAlunos extends Component {
     }
 
     async componentDidUpdate(nextProps) {    
-        if (nextProps.location.pathname !== this.props.location.pathname) {
+        if (this.props.location.state.atualiza) {
             let arrayAlunos = await getAlunos()
             this.setState({ alunos: arrayAlunos });
+        } else {
+            this.props.location.state.atualiza = false;
         }
     }
 
